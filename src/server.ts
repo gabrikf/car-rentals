@@ -1,14 +1,14 @@
 import express from 'express';
+import swaggerUi from 'swagger-ui-express';
 
 import { router } from './routes';
+import setupSwagger from './swagger.json';
 
 const app = express();
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  return res.json({ message: 'uiii' });
-});
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(setupSwagger));
 
 app.use(router);
 

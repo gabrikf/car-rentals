@@ -1,5 +1,4 @@
 import { SpecficationRepository } from '../../repositories/implementations/SpecificationRepository';
-import { CreateCategoryController } from '../createCategory/CreateCategoryController';
 import { CreateSpecificationController } from './CreateSpecificationController';
 import { CreateSpecificationUseCase } from './CreateSpecificationUseCase';
 
