@@ -1,8 +1,8 @@
 import { inject, injectable } from 'tsyringe';
 
-import { removeFileFromPaths } from '../../../../utils/removeFileFromPaths';
-import { IUpdateUserAvatarDTO } from '../../dtos/IUpdateUserAvarDTO';
-import { IUserRepository } from '../../repositories/IUserRepository';
+import { IUpdateUserAvatarDTO } from '@modules/accounts/dtos/IUpdateUserAvarDTO';
+import { IUserRepository } from '@modules/accounts/repositories/IUserRepository';
+import { removeFileFromPaths } from '@utils/removeFileFromPaths';
 
 @injectable()
 export class UpdateUserAvatarUseCase {
