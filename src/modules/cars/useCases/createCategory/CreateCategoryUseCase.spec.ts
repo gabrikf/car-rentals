@@ -1,4 +1,4 @@
-import { CategoryRepositoryInMemory } from '@modules/cars/repositories/in-memory/categoriesRepositoryInMemory';
+import { CategoryRepositoryInMemory } from '@modules/cars/repositories/in-memory/CategoriesRepositoryInMemory';
 import { AppError } from '@shared/errors/AppError';
 
 import { CreateCategoryUseCase } from './CreateCategoryUseCase';
@@ -26,7 +26,6 @@ describe('Create Category', () => {
     const createdCategory = await categoryRepositoryInMemory.findByName(
       category.name,
     );
-    console.log(createdCategory);
     expect(createdCategory).toHaveProperty('id');
   });
   it('should not be able to create a new category with an existing name ', async () => {
