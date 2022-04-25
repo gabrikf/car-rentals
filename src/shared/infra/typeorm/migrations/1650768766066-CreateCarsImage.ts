@@ -20,7 +20,7 @@ export class CreateCarsImage1650768766066 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'createAt',
+            name: 'created_at',
             type: 'timestamp',
             default: 'now()',
           },
