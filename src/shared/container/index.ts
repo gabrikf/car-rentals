@@ -10,6 +10,11 @@ import { ICarImageRepository } from '@modules/cars/repositories/ICarImageReposit
 import { ICarsRepository } from '@modules/cars/repositories/ICarsRepository';
 import { ICategoryRepository } from '@modules/cars/repositories/ICategoryRepository';
 import { ISpecificationRepository } from '@modules/cars/repositories/ISpecificationRepository';
+import { RentalRepository } from '@modules/rentals/infra/typeorm/repositories/RentalRepository';
+import { IRentalRepository } from '@modules/rentals/repositories/IRentalRepository';
+
+import { IDateProvider } from './providers/DateProvider/IDateProvider';
+import { DayJsDateProvider } from './providers/DateProvider/implementations/DayJsDateProvider';
 
 container.registerSingleton<ICategoryRepository>(
   'CategoryRepository',
@@ -29,3 +34,10 @@ container.registerSingleton<ICarImageRepository>(
   'CarImageRepository',
   CarImageRepository,
 );
+
+container.registerSingleton<IRentalRepository>(
+  'RentalsRepository',
+  RentalRepository,
+);
+
+container.registerSingleton<IDateProvider>('DateProvider', DayJsDateProvider);

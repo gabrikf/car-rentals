@@ -8,13 +8,13 @@ export class RentalRepositoryInMemory implements IRentalRepository {
 
   async create({
     car_id,
-    expected_return_date,
+    expect_return_date,
     user_id,
   }: ICreateRentalDTO): Promise<Rental> {
     const rental = new Rental();
     Object.assign(rental, {
       car_id,
-      expected_return_date,
+      expect_return_date,
       user_id,
       start_date: new Date(),
     });

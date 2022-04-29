@@ -5,7 +5,7 @@ import { ICreateRentalDTO } from '../dtos/CreateRentalDTO';
 export interface IRentalRepository {
   create({
     car_id,
-    expected_return_date,
+    expect_return_date,
     user_id,
   }: ICreateRentalDTO): Promise<Rental>;
   findOpenRentalByCar(car_id: string): Promise<Rental>;
