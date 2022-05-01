@@ -31,7 +31,6 @@ export class RentalRepository implements IRentalRepository {
         end_date: IsNull(),
       },
     });
-    console.log(rent);
     return rent;
   }
   async findOpenRentalByUser(user_id: string): Promise<Rental> {

@@ -23,7 +23,7 @@ export class CreateRentalUseCase {
     const carUnavailable = await this.rentalsRepository.findOpenRentalByCar(
       car_id,
     );
-    console.log(carUnavailable);
+
     if (carUnavailable) {
       throw new AppError('Car is unavailable');
     }
@@ -38,7 +38,7 @@ export class CreateRentalUseCase {
       this.dateProvider.dateNow(),
       expect_return_date,
     );
-    console.log(compare, expect_return_date);
+
     if (compare < minTimeToRent) {
       throw new AppError('Invalid minimum time to rent');
     }
