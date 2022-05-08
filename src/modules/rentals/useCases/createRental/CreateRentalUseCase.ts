@@ -1,5 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 
+import { ICarsRepository } from '@modules/cars/repositories/ICarsRepository';
 import { ICreateRentalDTO } from '@modules/rentals/dtos/CreateRentalDTO';
 import { Rental } from '@modules/rentals/infra/typeorm/entities/Rental';
 import { IRentalRepository } from '@modules/rentals/repositories/IRentalRepository';
@@ -13,6 +14,8 @@ export class CreateRentalUseCase {
     private rentalsRepository: IRentalRepository,
     @inject('DateProvider')
     private dateProvider: IDateProvider,
+    @inject('CarsRepository')
+    private carsRepository: ICarsRepository,
   ) {}
   async execute({
     car_id,
@@ -30,6 +33,7 @@ export class CreateRentalUseCase {
     const userUnavailable = await this.rentalsRepository.findOpenRentalByUser(
       user_id,
     );
+    console.log(userUnavailable);
     if (userUnavailable) {
       throw new AppError('User is already using a car');
     }
@@ -47,6 +51,9 @@ export class CreateRentalUseCase {
       expect_return_date,
       user_id,
     });
+
+    await this.carsRepository.updateAvailable(car_id, false);
+
     return rental;
   }
 }
