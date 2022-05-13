@@ -33,12 +33,11 @@ export class CreateRentalUseCase {
     const userUnavailable = await this.rentalsRepository.findOpenRentalByUser(
       user_id,
     );
-    console.log(userUnavailable);
     if (userUnavailable) {
       throw new AppError('User is already using a car');
     }
 
-    const compare = this.dateProvider.compare(
+    const compare = this.dateProvider.compareInHours(
       this.dateProvider.dateNow(),
       expect_return_date,
     );

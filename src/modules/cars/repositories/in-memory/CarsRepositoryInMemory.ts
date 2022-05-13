@@ -61,6 +61,5 @@ export class CarsRepositoryInMemory implements ICarsRepository {
     if (car) {
       car.available = available;
     }
-    console.log(this.cars);
   }
 }

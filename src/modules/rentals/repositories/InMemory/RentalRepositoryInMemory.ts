@@ -32,4 +32,7 @@ export class RentalRepositoryInMemory implements IRentalRepository {
       (rental) => rental.user_id === user_id && !rental.end_date,
     );
   }
+  findById(id: string): Promise<Rental> {
+    throw new Error('Method not implemented.');
+  }
 }

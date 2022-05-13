@@ -42,4 +42,8 @@ export class RentalRepository implements IRentalRepository {
     });
     return rent;
   }
+  async findById(id: string): Promise<Rental> {
+    const rental = await this.repository.findOne(id);
+    return rental;
+  }
 }
