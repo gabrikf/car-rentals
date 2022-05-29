@@ -41,7 +41,6 @@ export class CreateRentalUseCase {
       this.dateProvider.dateNow(),
       expect_return_date,
     );
-    console.log(compare);
     if (compare < minTimeToRent) {
       throw new AppError('Invalid minimum time to rent');
     }

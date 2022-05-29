@@ -44,40 +44,40 @@ describe('Create Rental', () => {
     expect(rental).toHaveProperty('start_date');
   });
   it('should not be able to create a new rental when car_id is being used for a rent', async () => {
-    expect(async () => {
-      await createRentalUseCase.execute({
-        car_id,
-        expect_return_date: dayPlusDay,
-        user_id: '123123',
-      });
-      await createRentalUseCase.execute({
+    await createRentalUseCase.execute({
+      car_id,
+      expect_return_date: dayPlusDay,
+      user_id: '123123',
+    });
+    await expect(
+      createRentalUseCase.execute({
         car_id,
         expect_return_date: dayPlusDay,
         user_id: '12312',
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      }),
+    ).rejects.toEqual(new AppError('Car is unavailable'));
   });
   it('should not be able to create a new rental when user_id is with an open rent', async () => {
-    expect(async () => {
-      await createRentalUseCase.execute({
-        car_id: '12312',
-        expect_return_date: dayPlusDay,
-        user_id: '123123',
-      });
-      await createRentalUseCase.execute({
+    await createRentalUseCase.execute({
+      car_id: '12312',
+      expect_return_date: dayPlusDay,
+      user_id: '123123',
+    });
+    await expect(
+      createRentalUseCase.execute({
         car_id,
         expect_return_date: dayPlusDay,
         user_id: '123123',
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      }),
+    ).rejects.toEqual(new AppError('User is already using a car'));
   });
   it('should not be able to create a rent with less then 24h foreseen', async () => {
-    expect(async () => {
-      await createRentalUseCase.execute({
+    await expect(
+      createRentalUseCase.execute({
         car_id,
         expect_return_date: dayjs().add(10, 'hours').toDate(),
         user_id: '123123',
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      }),
+    ).rejects.toEqual(new AppError('Invalid minimum time to rent'));
   });
 });

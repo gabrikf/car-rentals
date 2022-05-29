@@ -21,13 +21,14 @@ describe('CreateSpecificationUseCase', () => {
     const car_id = '12345';
     const specifications_ids = ['123123'];
 
-    expect(async () => {
-      await createSpecificationCarUseCase.execute({
+    await expect(
+      createSpecificationCarUseCase.execute({
         car_id,
         specifications_ids,
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      }),
+    ).rejects.toEqual(new AppError('This car does not exist'));
   });
+
   it('Should not add a specification for a car that not exist', async () => {
     const car = await carRepositoryInMemory.create({
       name: 'Car1',

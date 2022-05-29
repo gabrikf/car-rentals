@@ -25,17 +25,17 @@ describe('Creata Car Use Case', () => {
     expect(car).toHaveProperty('id');
   });
   it('should not create a car with an existing plate', async () => {
-    expect(async () => {
-      await createCarUseCase.execute({
-        name: 'test Car1',
-        description: 'description test',
-        daily_rate: 100,
-        license_plate: 'ABC-1234',
-        fine_amount: 60,
-        brand: 'Brand test',
-        category_id: 'category',
-      });
-      await createCarUseCase.execute({
+    await createCarUseCase.execute({
+      name: 'test Car1',
+      description: 'description test',
+      daily_rate: 100,
+      license_plate: 'ABC-1234',
+      fine_amount: 60,
+      brand: 'Brand test',
+      category_id: 'category',
+    });
+    await expect(
+      createCarUseCase.execute({
         name: 'test Car2',
         description: 'description test',
         daily_rate: 100,
@@ -43,8 +43,8 @@ describe('Creata Car Use Case', () => {
         fine_amount: 60,
         brand: 'Brand test',
         category_id: 'category',
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      }),
+    ).rejects.toEqual(new AppError('This plates is already being used'));
   });
   it('should be created with avaliable proporty as true by default', async () => {
     const car = await createCarUseCase.execute({

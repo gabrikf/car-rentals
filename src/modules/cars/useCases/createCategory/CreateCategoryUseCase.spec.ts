@@ -33,15 +33,15 @@ describe('Create Category', () => {
       name: 'Category Test',
       description: 'Category description Test',
     };
-    expect(async () => {
-      await createCategoryUseCase.execute({
+    await createCategoryUseCase.execute({
+      name: category.name,
+      description: category.description,
+    });
+    await expect(
+      createCategoryUseCase.execute({
         name: category.name,
         description: category.description,
-      });
-      await createCategoryUseCase.execute({
-        name: category.name,
-        description: category.description,
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      }),
+    ).rejects.toEqual(new AppError('This category is already being used'));
   });
 });

@@ -39,7 +39,6 @@ export class DevolutionRentalUseCase {
     );
 
     let total = 0;
-    console.log(delay);
     if (delay > 0) {
       total = delay * fine_amount;
     }
