@@ -21,7 +21,6 @@ const importCategoryController = new ImportCategoriesController();
 categoriesRouter.post(
   '/',
   ensureAuthenticated,
-  ensureAdmin,
   createCategoryController.handle,
 );
 
