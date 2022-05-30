@@ -24,7 +24,7 @@ export async function ensureAuthenticated(
     const userRepository = new UserRepository();
     const tokenVerified = verify(
       token,
-      '74EBC35C58A5049F0F271EBF6F78CC8F',
+      process.env.JWT_SECRET_TOKEN,
     ) as IPayload;
     const { sub: user_id } = tokenVerified;
     const user = await userRepository.findById(user_id);

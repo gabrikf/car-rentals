@@ -1,6 +1,8 @@
 import { container } from 'tsyringe';
 
+import { TokenRepository } from '@modules/accounts/infra/typeorm/repositories/TokenRepository';
 import { UserRepository } from '@modules/accounts/infra/typeorm/repositories/UserRepository';
+import { ITokenRepository } from '@modules/accounts/repositories/ITokenRepository';
 import { IUserRepository } from '@modules/accounts/repositories/IUserRepository';
 import { CarImageRepository } from '@modules/cars/infra/typeorm/repositories/CarImageRepository';
 import { CarsRepository } from '@modules/cars/infra/typeorm/repositories/CarsRepository';
@@ -38,6 +40,10 @@ container.registerSingleton<ICarImageRepository>(
 container.registerSingleton<IRentalRepository>(
   'RentalsRepository',
   RentalRepository,
+);
+container.registerSingleton<ITokenRepository>(
+  'TokenRepository',
+  TokenRepository,
 );
 
 container.registerSingleton<IDateProvider>('DateProvider', DayJsDateProvider);

@@ -9,4 +9,5 @@ export interface ILoginResponseDTO {
     email: string;
   };
   token: string;
+  refresh_token: string;
 }
