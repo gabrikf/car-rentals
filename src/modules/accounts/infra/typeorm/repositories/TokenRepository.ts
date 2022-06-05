@@ -37,4 +37,10 @@ export class TokenRepository implements ITokenRepository {
   async deleteById(id: string): Promise<void> {
     await this.repository.delete(id);
   }
+  async findByToken(token: string): Promise<Tokens> {
+    const userToken = await this.repository.findOne({
+      refresh_token: token,
+    });
+    return userToken;
+  }
 }

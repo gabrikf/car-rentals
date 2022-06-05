@@ -9,4 +9,5 @@ export interface ITokenRepository {
     refresh_token: string,
   ): Promise<Tokens>;
   deleteById(id: string): Promise<void>;
+  findByToken(token: string): Promise<Tokens>;
 }
