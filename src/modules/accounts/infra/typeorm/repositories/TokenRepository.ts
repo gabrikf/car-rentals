@@ -43,4 +43,13 @@ export class TokenRepository implements ITokenRepository {
     });
     return userToken;
   }
+  async findByUser(id: string): Promise<Tokens> {
+    const token = await this.repository.findOne({
+      user_id: id,
+    });
+    return token;
+  }
+  getAll(): Promise<Tokens[]> {
+    throw new Error('Method not implemented.');
+  }
 }

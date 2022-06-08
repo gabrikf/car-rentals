@@ -37,6 +37,11 @@ export class AuthenticateUserUseCase {
       throw new AppError('Email or password incorrect');
     }
 
+    const oldToken = await this.tokenRepository.findByUser(user.id);
+    if (oldToken) {
+      await this.tokenRepository.deleteById(oldToken.id);
+    }
+
     const token = sign({}, process.env.JWT_SECRET_TOKEN, {
       subject: user.id,
       expiresIn: auth.expires_token,
@@ -50,6 +55,7 @@ export class AuthenticateUserUseCase {
         expiresIn: auth.expires_refresh_token,
       },
     );
+
     await this.tokenRepository.create({
       refresh_token,
       expires_date: this.dateProvider.addDays(

@@ -67,4 +67,26 @@ describe('Authenticate User', () => {
       }),
     ).rejects.toEqual(new AppError('Email or password incorrect'));
   });
+  it('should delete old user token when create a new refreshtoken', async () => {
+    const user: ICreateUserDTO = {
+      driver_license: '00123',
+      email: 'user@test.com',
+      name: 'User Test',
+      password: '1234',
+    };
+    await createUserUseCase.execute(user);
+
+    await authenticateUserUseCase.execute({
+      email: user.email,
+      password: user.password,
+    });
+    await authenticateUserUseCase.execute({
+      email: user.email,
+      password: user.password,
+    });
+
+    const result = await tokensRepositoryInMemory.getAll();
+
+    expect(result.length).toBe(1);
+  });
 });
