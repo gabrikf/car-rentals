@@ -37,9 +37,10 @@ export class AuthenticateUserUseCase {
       throw new AppError('Email or password incorrect');
     }
 
-    const oldToken = await this.tokenRepository.findByUser(user.id);
-    if (oldToken) {
-      await this.tokenRepository.deleteById(oldToken.id);
+    const oldTokens = await this.tokenRepository.findAllByUser(user.id);
+    if (oldTokens) {
+      const tokensToDelete = oldTokens.map((token) => token.id);
+      await this.tokenRepository.massiveDeleteById(tokensToDelete);
     }
 
     const token = sign({}, process.env.JWT_SECRET_TOKEN, {

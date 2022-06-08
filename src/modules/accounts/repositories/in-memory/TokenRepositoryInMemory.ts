@@ -35,10 +35,16 @@ export class TokenRepositoryInMemory implements ITokenRepository {
   async findByToken(token: string): Promise<Tokens> {
     return this.tokens.find((userToken) => userToken.refresh_token === token);
   }
-  async findByUser(id: string): Promise<Tokens> {
-    return this.tokens.find((token) => token.user_id === id);
+  async findAllByUser(id: string): Promise<Tokens[]> {
+    return this.tokens.filter((token) => token.user_id === id);
   }
   async getAll(): Promise<Tokens[]> {
     return this.tokens;
+  }
+  async massiveDeleteById(ids: string[]): Promise<void> {
+    const filteredValues = await this.tokens.filter(
+      (token) => !ids.some((id) => id === token.id),
+    );
+    this.tokens = filteredValues;
   }
 }

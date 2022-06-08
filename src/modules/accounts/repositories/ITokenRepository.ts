@@ -8,8 +8,9 @@ export interface ITokenRepository {
     user_id: string,
     refresh_token: string,
   ): Promise<Tokens>;
-  findByUser(id: string): Promise<Tokens>;
+  findAllByUser(id: string): Promise<Tokens[]>;
   deleteById(id: string): Promise<void>;
+  massiveDeleteById(ids: string[]): Promise<void>;
   findByToken(token: string): Promise<Tokens>;
   getAll(): Promise<Tokens[]>;
 }

@@ -1,4 +1,4 @@
-import { getRepository, Repository } from 'typeorm';
+import { getRepository, In, Repository } from 'typeorm';
 
 import { ITokenDTO } from '@modules/accounts/dtos/ITokenDTO';
 import { ITokenRepository } from '@modules/accounts/repositories/ITokenRepository';
@@ -37,19 +37,23 @@ export class TokenRepository implements ITokenRepository {
   async deleteById(id: string): Promise<void> {
     await this.repository.delete(id);
   }
+
   async findByToken(token: string): Promise<Tokens> {
     const userToken = await this.repository.findOne({
       refresh_token: token,
     });
     return userToken;
   }
-  async findByUser(id: string): Promise<Tokens> {
-    const token = await this.repository.findOne({
+  async findAllByUser(id: string): Promise<Tokens[]> {
+    const tokens = await this.repository.find({
       user_id: id,
     });
-    return token;
+    return tokens;
   }
   getAll(): Promise<Tokens[]> {
     throw new Error('Method not implemented.');
+  }
+  async massiveDeleteById(ids: string[]): Promise<void> {
+    await this.repository.delete({ id: In(ids) });
   }
 }
