@@ -10,7 +10,7 @@ import { UploadImageCarController } from '@modules/cars/useCases/uploadImageCar/
 import { ensureAdmin } from '../middlewares/ensureAdmin';
 import { ensureAuthenticated } from '../middlewares/ensureAuthentitedec';
 
-const upload = multer(uploadConfig.upload('./tmp/cars'));
+const upload = multer(uploadConfig);
 
 export const carRouter = Router();
 
