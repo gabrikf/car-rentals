@@ -37,7 +37,6 @@ carRouter.post(
 carRouter.post(
   '/images/:id',
   ensureAuthenticated,
-  ensureAdmin,
   upload.array('images'),
   uploadImageCarController.handle,
 );
