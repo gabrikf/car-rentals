@@ -14,14 +14,7 @@ import { ICategoryRepository } from '@modules/cars/repositories/ICategoryReposit
 import { ISpecificationRepository } from '@modules/cars/repositories/ISpecificationRepository';
 import { RentalRepository } from '@modules/rentals/infra/typeorm/repositories/RentalRepository';
 import { IRentalRepository } from '@modules/rentals/repositories/IRentalRepository';
-
-import { IDateProvider } from './providers/DateProvider/IDateProvider';
-import { DayJsDateProvider } from './providers/DateProvider/implementations/DayJsDateProvider';
-import { IMailProvider } from './providers/MailProvider/IMailProvider';
-import { EtherealMailProvider } from './providers/MailProvider/implementations/EtherealMailProvider';
-import { LocalStorageProvider } from './providers/StorageProvider/implementations/LocalStorageProvider';
-import { S3StorageProvider } from './providers/StorageProvider/implementations/S3StorageProvider';
-import { IStorageProvider } from './providers/StorageProvider/IStorageProvider';
+import './providers';
 
 container.registerSingleton<ICategoryRepository>(
   'CategoryRepository',
@@ -49,21 +42,4 @@ container.registerSingleton<IRentalRepository>(
 container.registerSingleton<ITokenRepository>(
   'TokenRepository',
   TokenRepository,
-);
-
-container.registerSingleton<IDateProvider>('DateProvider', DayJsDateProvider);
-
-container.registerInstance<IMailProvider>(
-  'EtherealMailProvider',
-  new EtherealMailProvider(),
-);
-
-const diskStorage = {
-  dev: LocalStorageProvider,
-  prod: S3StorageProvider,
-};
-
-container.registerSingleton<IStorageProvider>(
-  'StorageProvider',
-  diskStorage[process.env.SERVER_ENV],
 );
