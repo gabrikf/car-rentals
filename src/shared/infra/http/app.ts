@@ -11,11 +11,14 @@ import upload from '@config/upload';
 
 import setupSwagger from '../../../swagger.json';
 import { errorHandler } from './middlewares/errorHandler';
+import rateLimiter from './middlewares/rateLimiter';
 import { router } from './routes';
 
 createConnection();
 
 const app = express();
+
+app.use(rateLimiter);
 
 app.use(express.json());
 
